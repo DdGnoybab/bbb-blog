@@ -21,7 +21,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'title and content are required' }, { status: 400 })
   }
 
-  const slug = body.slug || generateSlug(title)
+  // Sanitize slug: if user-provided slug contains non-ASCII chars, regenerate from it as if it were a title
+  const rawSlug = body.slug ? generateSlug(body.slug) || generateSlug(title) : generateSlug(title)
+  const slug = rawSlug
   const post = createPost({ title, slug, content, category: category || 'other', tags: tags || [], status: status || 'draft', coverUrl })
   return NextResponse.json(post, { status: 201 })
 }

@@ -72,11 +72,16 @@ export function getAllPublishedPosts(): Post[] {
 
 export function getPostBySlug(slug: string): Post | null {
   const db = getDb()
-  const row = db
-    .prepare(`SELECT * FROM posts WHERE slug = ? AND status = 'published'`)
-    .get(slug) as Record<string, unknown> | undefined
-  if (row) return rowToPost(row)
-  return getMdPosts().find((p) => p.slug === slug) ?? null
+  // Try both raw and URL-decoded slug to handle encoding variations in Next.js params
+  const decoded = (() => { try { return decodeURIComponent(slug) } catch { return slug } })()
+  const candidates = Array.from(new Set([slug, decoded]))
+  for (const s of candidates) {
+    const row = db
+      .prepare(`SELECT * FROM posts WHERE slug = ? AND status = 'published'`)
+      .get(s) as Record<string, unknown> | undefined
+    if (row) return rowToPost(row)
+  }
+  return getMdPosts().find((p) => p.slug === slug || p.slug === decoded) ?? null
 }
 
 export function getAllPostsAdmin(): Post[] {

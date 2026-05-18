@@ -15,7 +15,7 @@ export default function Nav() {
             href="/about"
             className="font-display text-sm tracking-widest text-text-muted hover:text-accent-yellow transition-colors"
           >
-            关于
+            About Me
           </Link>
         </div>
       </div>

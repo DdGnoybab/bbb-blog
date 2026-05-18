@@ -35,6 +35,7 @@ function Editor() {
         setCoverUrl(post.coverUrl || '')
         setStatus(post.status)
       })
+      .catch(() => {})
   }, [editId])
 
   async function handleSave() {
@@ -64,11 +65,14 @@ function Editor() {
           body: JSON.stringify(body),
         })
 
-    if (res.ok) {
-      router.push('/admin')
-    } else {
-      const data = await res.json()
-      setError(data.error || 'Save failed')
+    try {
+      if (res.ok) {
+        router.push('/admin')
+      } else {
+        const data = await res.json()
+        setError(data.error || 'Save failed')
+      }
+    } finally {
       setSaving(false)
     }
   }

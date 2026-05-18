@@ -9,13 +9,13 @@ export default function AdminPage() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch('/api/posts').then((r) => r.json()).then(setPosts)
+    fetch('/api/posts').then((r) => r.json()).then(setPosts).catch(() => {})
   }, [])
 
   async function handleDelete(id: string) {
     if (!confirm('Delete this post?')) return
-    await fetch(`/api/posts/${id}`, { method: 'DELETE' })
-    setPosts((prev) => prev.filter((p) => p.id !== id))
+    const res = await fetch(`/api/posts/${id}`, { method: 'DELETE' })
+    if (res.ok) setPosts((prev) => prev.filter((p) => p.id !== id))
   }
 
   async function toggleStatus(post: Post) {
@@ -25,8 +25,10 @@ export default function AdminPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     })
-    const updated = await res.json()
-    setPosts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
+    if (res.ok) {
+      const updated = await res.json()
+      setPosts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
+    }
   }
 
   async function handleLogout() {

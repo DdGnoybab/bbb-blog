@@ -33,6 +33,7 @@ function GoalEditor() {
         setTasks(goal.tasks)
         setStatus(goal.status)
       })
+      .catch(() => {})
   }, [editId])
 
   function addTask() {
@@ -67,11 +68,14 @@ function GoalEditor() {
           body: JSON.stringify(body),
         })
 
-    if (res.ok) {
-      router.push('/admin/goals')
-    } else {
-      const data = await res.json()
-      setError(data.error || 'Save failed')
+    try {
+      if (res.ok) {
+        router.push('/admin/goals')
+      } else {
+        const data = await res.json()
+        setError(data.error || 'Save failed')
+      }
+    } finally {
       setSaving(false)
     }
   }

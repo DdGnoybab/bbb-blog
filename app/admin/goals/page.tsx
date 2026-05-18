@@ -13,13 +13,13 @@ export default function AdminGoalsPage() {
   const [goals, setGoals] = useState<Goal[]>([])
 
   useEffect(() => {
-    fetch('/api/goals?admin=true').then((r) => r.json()).then(setGoals)
+    fetch('/api/goals?admin=true').then((r) => r.json()).then(setGoals).catch(() => {})
   }, [])
 
   async function handleDelete(id: string) {
     if (!confirm('Delete this goal?')) return
-    await fetch(`/api/goals/${id}`, { method: 'DELETE' })
-    setGoals((prev) => prev.filter((g) => g.id !== id))
+    const res = await fetch(`/api/goals/${id}`, { method: 'DELETE' })
+    if (res.ok) setGoals((prev) => prev.filter((g) => g.id !== id))
   }
 
   return (

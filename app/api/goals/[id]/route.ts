@@ -23,9 +23,14 @@ export async function PATCH(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
   const { id } = await params
-  const body = await request.json()
+  let body: unknown
   try {
-    const goal = updateGoal(id, body)
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+  }
+  try {
+    const goal = updateGoal(id, body as Parameters<typeof updateGoal>[1])
     return NextResponse.json(goal)
   } catch {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })

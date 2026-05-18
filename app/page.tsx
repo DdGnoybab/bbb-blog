@@ -41,11 +41,20 @@ export default async function HomePage() {
               <h1 className="font-display text-5xl tracking-wide text-text-primary group-hover:text-accent-yellow transition-colors leading-tight mb-3">
                 {featured.title}
               </h1>
-              <p className="text-text-muted text-sm font-mono">
-                {featured.publishedAt
-                  ? new Date(featured.publishedAt).toLocaleDateString('zh-CN')
-                  : ''}
-              </p>
+              <div className="flex items-center gap-3 flex-wrap">
+                <p className="text-text-muted text-sm font-mono">
+                  {featured.publishedAt
+                    ? new Date(featured.publishedAt).toLocaleDateString('zh-CN')
+                    : ''}
+                </p>
+                {featured.tags.length > 0 && (
+                  <div className="flex gap-2 flex-wrap">
+                    {featured.tags.map((tag) => (
+                      <span key={tag} className="zzz-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </a>
         </section>

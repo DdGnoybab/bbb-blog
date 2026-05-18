@@ -13,7 +13,7 @@ export default function GoalCard({ goal }: { goal: Goal }) {
       )}
       <div className="mb-3">
         <div className="flex justify-between text-xs font-mono text-text-muted mb-1">
-          <span>PROGRESS</span>
+          <span>进度</span>
           <span className="text-accent-yellow">{goal.progress}%</span>
         </div>
         <div className="zzz-progress-track">
@@ -41,7 +41,7 @@ export default function GoalCard({ goal }: { goal: Goal }) {
       )}
       <div className="mt-3 text-right">
         <span className="text-xs font-mono text-text-muted">
-          {doneTasks}/{goal.tasks.length} TASKS
+          {doneTasks}/{goal.tasks.length} 项
         </span>
       </div>
     </div>

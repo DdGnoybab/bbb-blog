@@ -35,8 +35,8 @@ export default async function HomePage() {
           >
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-4">
-                <span className="zzz-tag">{featured.category}</span>
-                <span className="text-text-muted text-xs font-mono">LATEST</span>
+                <span className="zzz-tag">{{ tech: '技术', life: '生活', other: '其他' }[featured.category]}</span>
+                <span className="text-text-muted text-xs font-mono">最新</span>
               </div>
               <h1 className="font-display text-5xl tracking-wide text-text-primary group-hover:text-accent-yellow transition-colors leading-tight mb-3">
                 {featured.title}

@@ -5,7 +5,7 @@ export default function PostCard({ post }: { post: Post }) {
   return (
     <Link href={`/posts/${post.slug}`} className="block zzz-card p-5 group">
       <div className="flex items-center gap-2 mb-3">
-        <span className="zzz-tag">{post.category}</span>
+        <span className="zzz-tag">{{ tech: '技术', life: '生活', other: '其他' }[post.category]}</span>
         <span className="text-text-muted text-xs font-mono">
           {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('zh-CN') : ''}
         </span>

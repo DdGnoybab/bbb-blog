@@ -3,7 +3,7 @@ export default function AboutPage() {
     <div className="max-w-2xl mx-auto">
       <header className="mb-10">
         <h1 className="font-display text-6xl tracking-wide text-text-primary mb-4">
-          ABOUT
+          关于
         </h1>
         <div className="h-1 w-24 bg-accent-yellow" />
       </header>

@@ -21,7 +21,7 @@ export default function HomepageFilter({ posts }: { posts: Post[] }) {
         ))}
       </div>
       {filtered.length === 0 && (
-        <p className="text-text-muted font-mono text-sm">// NO POSTS IN THIS CATEGORY</p>
+        <p className="text-text-muted font-mono text-sm">// 该分类暂无文章</p>
       )}
     </div>
   )

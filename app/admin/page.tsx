@@ -13,7 +13,7 @@ export default function AdminPage() {
   }, [])
 
   async function handleDelete(id: string) {
-    if (!confirm('Delete this post?')) return
+    if (!confirm('确认删除这篇文章？')) return
     const res = await fetch(`/api/posts/${id}`, { method: 'DELETE' })
     if (res.ok) setPosts((prev) => prev.filter((p) => p.id !== id))
   }
@@ -40,14 +40,14 @@ export default function AdminPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h1 className="font-display text-4xl tracking-widest text-accent-yellow">
-          ARTICLES
+          文章管理
         </h1>
         <div className="flex gap-3">
           <Link href="/admin/editor" className="zzz-btn-primary">
-            + NEW
+            + 新建
           </Link>
           <button onClick={handleLogout} className="zzz-btn-outline text-sm">
-            LOGOUT
+            退出
           </button>
         </div>
       </div>
@@ -57,19 +57,19 @@ export default function AdminPage() {
           href="/admin"
           className="font-display tracking-widest text-accent-yellow border-b-2 border-accent-yellow pb-1"
         >
-          ARTICLES
+          文章
         </Link>
         <Link
           href="/admin/goals"
           className="font-display tracking-widest text-text-muted hover:text-accent-yellow transition-colors"
         >
-          GOALS
+          目标
         </Link>
       </div>
 
       <div className="space-y-2">
         {posts.length === 0 && (
-          <p className="text-text-muted font-mono text-sm">// NO ARTICLES YET</p>
+          <p className="text-text-muted font-mono text-sm">// 暂无文章</p>
         )}
         {posts.map((post) => (
           <div
@@ -92,25 +92,25 @@ export default function AdminPage() {
                     : ''
                 }`}
               >
-                {post.status}
+                {post.status === 'published' ? '已发布' : '草稿'}
               </span>
               <button
                 onClick={() => toggleStatus(post)}
                 className="zzz-btn-outline text-xs py-1 px-3"
               >
-                {post.status === 'published' ? 'UNPUBLISH' : 'PUBLISH'}
+                {post.status === 'published' ? '取消发布' : '发布'}
               </button>
               <Link
                 href={`/admin/editor?id=${post.id}`}
                 className="zzz-btn-outline text-xs py-1 px-3"
               >
-                EDIT
+                编辑
               </Link>
               <button
                 onClick={() => handleDelete(post.id)}
                 className="font-mono text-xs text-accent-red hover:opacity-70 transition-opacity"
               >
-                DEL
+                删除
               </button>
             </div>
           </div>

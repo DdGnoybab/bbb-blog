@@ -73,7 +73,7 @@ function GoalEditor() {
         router.push('/admin/goals')
       } else {
         const data = await res.json()
-        setError(data.error || 'Save failed')
+        setError(data.error || '保存失败')
       }
     } finally {
       setSaving(false)
@@ -84,10 +84,10 @@ function GoalEditor() {
     <div className="space-y-6 max-w-2xl">
       <div className="flex items-center justify-between">
         <h1 className="font-display text-4xl tracking-widest text-accent-yellow">
-          {editId ? 'EDIT GOAL' : 'NEW GOAL'}
+          {editId ? '编辑目标' : '新建目标'}
         </h1>
         <button onClick={handleSave} disabled={saving} className="zzz-btn-primary">
-          {saving ? 'SAVING...' : 'SAVE'}
+          {saving ? '保存中...' : '保存'}
         </button>
       </div>
 
@@ -97,20 +97,20 @@ function GoalEditor() {
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Goal title"
+          placeholder="目标标题"
           className="w-full bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-3 font-display text-2xl tracking-wide focus:outline-none focus:border-accent-yellow"
         />
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description (optional)"
+          placeholder="描述（可选）"
           rows={3}
           className="w-full bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-2 font-mono text-sm focus:outline-none focus:border-accent-yellow resize-none"
         />
         <input
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          placeholder="Category (optional, e.g. TECH, LIFE)"
+          placeholder="分类（可选）"
           className="w-full bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-2 font-mono text-sm focus:outline-none focus:border-accent-yellow"
         />
       </div>
@@ -118,7 +118,7 @@ function GoalEditor() {
       {/* Progress */}
       <div>
         <div className="flex justify-between font-mono text-sm text-text-muted mb-2">
-          <span>OVERALL PROGRESS</span>
+          <span>整体进度</span>
           <span className="text-accent-yellow">{progress}%</span>
         </div>
         <input
@@ -143,7 +143,7 @@ function GoalEditor() {
               onChange={() => setStatus(s)}
               className="accent-accent-yellow"
             />
-            <span className="font-mono text-sm text-text-muted uppercase">{s}</span>
+            <span className="font-mono text-sm text-text-muted">{{ active: '进行中', paused: '已暂停', done: '已完成' }[s]}</span>
           </label>
         ))}
       </div>
@@ -151,7 +151,7 @@ function GoalEditor() {
       {/* Sub-tasks */}
       <div>
         <h3 className="font-display tracking-widest text-text-muted mb-3 text-sm">
-          SUB-TASKS
+          子任务
         </h3>
         <div className="space-y-2 mb-3">
           {tasks.map((task, i) => (
@@ -181,11 +181,11 @@ function GoalEditor() {
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && addTask()}
-            placeholder="Add a sub-task (Enter to add)"
+            placeholder="添加子任务（回车确认）"
             className="flex-1 bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-2 font-mono text-sm focus:outline-none focus:border-accent-yellow"
           />
           <button onClick={addTask} className="zzz-btn-outline text-sm">
-            ADD
+            添加
           </button>
         </div>
       </div>

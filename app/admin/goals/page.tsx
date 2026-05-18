@@ -4,9 +4,9 @@ import Link from 'next/link'
 import type { Goal } from '@/lib/types'
 
 const STATUS_LABELS: Record<Goal['status'], string> = {
-  active: 'ACTIVE',
-  done: 'DONE',
-  paused: 'PAUSED',
+  active: '进行中',
+  done: '已完成',
+  paused: '已暂停',
 }
 
 export default function AdminGoalsPage() {
@@ -17,7 +17,7 @@ export default function AdminGoalsPage() {
   }, [])
 
   async function handleDelete(id: string) {
-    if (!confirm('Delete this goal?')) return
+    if (!confirm('确认删除这个目标？')) return
     const res = await fetch(`/api/goals/${id}`, { method: 'DELETE' })
     if (res.ok) setGoals((prev) => prev.filter((g) => g.id !== id))
   }
@@ -26,10 +26,10 @@ export default function AdminGoalsPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h1 className="font-display text-4xl tracking-widest text-accent-yellow">
-          GOALS
+          目标管理
         </h1>
         <Link href="/admin/goals/editor" className="zzz-btn-primary">
-          + NEW GOAL
+          + 新建目标
         </Link>
       </div>
 
@@ -38,19 +38,19 @@ export default function AdminGoalsPage() {
           href="/admin"
           className="font-display tracking-widest text-text-muted hover:text-accent-yellow transition-colors"
         >
-          ARTICLES
+          文章
         </Link>
         <Link
           href="/admin/goals"
           className="font-display tracking-widest text-accent-yellow border-b-2 border-accent-yellow pb-1"
         >
-          GOALS
+          目标
         </Link>
       </div>
 
       <div className="space-y-2">
         {goals.length === 0 && (
-          <p className="text-text-muted font-mono text-sm">// NO GOALS YET</p>
+          <p className="text-text-muted font-mono text-sm">// 暂无目标</p>
         )}
         {goals.map((goal) => (
           <div
@@ -70,7 +70,7 @@ export default function AdminGoalsPage() {
                 </div>
                 <span className="font-mono text-xs text-accent-yellow">{goal.progress}%</span>
                 <span className="font-mono text-xs text-text-muted">
-                  {goal.tasks.filter((t) => t.done).length}/{goal.tasks.length} tasks
+                  {goal.tasks.filter((t) => t.done).length}/{goal.tasks.length} 项
                 </span>
               </div>
             </div>
@@ -82,13 +82,13 @@ export default function AdminGoalsPage() {
                 href={`/admin/goals/editor?id=${goal.id}`}
                 className="zzz-btn-outline text-xs py-1 px-3"
               >
-                EDIT
+                编辑
               </Link>
               <button
                 onClick={() => handleDelete(goal.id)}
                 className="font-mono text-xs text-accent-red hover:opacity-70 transition-opacity"
               >
-                DEL
+                删除
               </button>
             </div>
           </div>

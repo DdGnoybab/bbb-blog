@@ -70,7 +70,7 @@ function Editor() {
         router.push('/admin')
       } else {
         const data = await res.json()
-        setError(data.error || 'Save failed')
+        setError(data.error || '保存失败')
       }
     } finally {
       setSaving(false)
@@ -81,21 +81,21 @@ function Editor() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="font-display text-4xl tracking-widest text-accent-yellow">
-          {editId ? 'EDIT ARTICLE' : 'NEW ARTICLE'}
+          {editId ? '编辑文章' : '新建文章'}
         </h1>
         <div className="flex gap-3">
           <button
             onClick={() => setPreview(!preview)}
             className="zzz-btn-outline text-sm"
           >
-            {preview ? 'EDIT' : 'PREVIEW'}
+            {preview ? '编辑' : '预览'}
           </button>
           <button
             onClick={handleSave}
             disabled={saving}
             className="zzz-btn-primary"
           >
-            {saving ? 'SAVING...' : 'SAVE'}
+            {saving ? '保存中...' : '保存'}
           </button>
         </div>
       </div>
@@ -106,13 +106,13 @@ function Editor() {
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
+          placeholder="标题"
           className="col-span-2 bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-3 font-display text-2xl tracking-wide focus:outline-none focus:border-accent-yellow"
         />
         <input
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
-          placeholder="slug (auto-generated if empty)"
+          placeholder="URL 别名（留空自动生成）"
           className="bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-2 font-mono text-sm focus:outline-none focus:border-accent-yellow"
         />
         <select
@@ -120,20 +120,20 @@ function Editor() {
           onChange={(e) => setCategory(e.target.value as Post['category'])}
           className="bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-2 font-mono text-sm focus:outline-none focus:border-accent-yellow"
         >
-          <option value="tech">TECH</option>
-          <option value="life">LIFE</option>
-          <option value="other">OTHER</option>
+          <option value="tech">技术</option>
+          <option value="life">生活</option>
+          <option value="other">其他</option>
         </select>
         <input
           value={tags}
           onChange={(e) => setTags(e.target.value)}
-          placeholder="tags (comma-separated)"
+          placeholder="标签（逗号分隔）"
           className="bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-2 font-mono text-sm focus:outline-none focus:border-accent-yellow"
         />
         <input
           value={coverUrl}
           onChange={(e) => setCoverUrl(e.target.value)}
-          placeholder="Cover image URL (optional)"
+          placeholder="封面图片地址（可选）"
           className="bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-2 font-mono text-sm focus:outline-none focus:border-accent-yellow"
         />
         <div className="col-span-2 flex gap-4">
@@ -147,7 +147,7 @@ function Editor() {
                 onChange={() => setStatus(s)}
                 className="accent-accent-yellow"
               />
-              <span className="font-mono text-sm text-text-muted uppercase">{s}</span>
+              <span className="font-mono text-sm text-text-muted">{{ draft: '草稿', published: '发布' }[s]}</span>
             </label>
           ))}
         </div>
@@ -161,7 +161,7 @@ function Editor() {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="Write your article in Markdown..."
+          placeholder="用 Markdown 写文章..."
           rows={24}
           className="w-full bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-3 font-mono text-sm focus:outline-none focus:border-accent-yellow resize-none leading-relaxed"
         />

@@ -12,7 +12,6 @@ function Editor() {
   const editId = searchParams.get('id')
 
   const [title, setTitle] = useState('')
-  const [slug, setSlug] = useState('')
   const [content, setContent] = useState('')
   const [category, setCategory] = useState<Post['category']>('other')
   const [tags, setTags] = useState('')
@@ -28,7 +27,6 @@ function Editor() {
       .then((r) => r.json())
       .then((post: Post) => {
         setTitle(post.title)
-        setSlug(post.slug)
         setContent(post.content)
         setCategory(post.category)
         setTags(post.tags.join(', '))
@@ -43,7 +41,6 @@ function Editor() {
     setError('')
     const body = {
       title,
-      slug: slug || undefined,
       content,
       category,
       tags: tags
@@ -108,12 +105,6 @@ function Editor() {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="标题"
           className="col-span-2 bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-3 font-display text-2xl tracking-wide focus:outline-none focus:border-accent-yellow"
-        />
-        <input
-          value={slug}
-          onChange={(e) => setSlug(e.target.value)}
-          placeholder="URL 别名（留空自动生成）"
-          className="bg-bg-secondary border-2 border-border-subtle text-text-primary px-4 py-2 font-mono text-sm focus:outline-none focus:border-accent-yellow"
         />
         <select
           value={category}

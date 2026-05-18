@@ -12,6 +12,13 @@ export default async function HomePage() {
   return (
     <div className="space-y-16">
 
+      {/* Cinematic quote */}
+      <div className="border-l-2 border-accent-yellow pl-4 py-0.5">
+        <p className="font-body italic text-text-muted text-base tracking-wide">
+          什么都无法舍弃的人，什么也改变不了
+        </p>
+      </div>
+
       {/* Goals widget */}
       {goals.length > 0 && (
         <section>

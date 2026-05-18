@@ -1,26 +1,171 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bg-primary: #0A0A0A;
+  --color-bg-secondary: #111111;
+  --color-bg-card: #131313;
+  --color-text-primary: #F0F0F0;
+  --color-text-muted: #666666;
+  --color-accent-yellow: #FFE600;
+  --color-accent-red: #FF3A2D;
+  --color-border-subtle: #2A2A2A;
+  --color-border-strong: #FFE600;
+
+  --font-display: var(--font-bebas), sans-serif;
+  --font-body: var(--font-source-serif), serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-bebas: 'Bebas Neue';
+  --font-source-serif: 'Source Serif 4';
+  --font-jetbrains: 'JetBrains Mono';
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0A0A0A;
+  color: #F0F0F0;
+  font-family: var(--font-source-serif), serif;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ZZZ card style */
+.zzz-card {
+  background: #131313;
+  border: 2px solid #2A2A2A;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.zzz-card:hover {
+  border-color: #FFE600;
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 0 #FFE600;
+}
+
+/* ZZZ tag */
+.zzz-tag {
+  display: inline-block;
+  background: #000;
+  color: #FFE600;
+  border: 1.5px solid #FFE600;
+  font-family: var(--font-bebas);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  padding: 1px 8px;
+  text-transform: uppercase;
+}
+
+/* ZZZ progress bar */
+.zzz-progress-track {
+  background: #1A1A1A;
+  border: 1px solid #2A2A2A;
+  height: 6px;
+}
+
+.zzz-progress-fill {
+  background: #FFE600;
+  height: 100%;
+  transition: width 300ms ease;
+}
+
+/* ZZZ button */
+.zzz-btn-primary {
+  background: #FFE600;
+  color: #000;
+  font-family: var(--font-bebas);
+  letter-spacing: 0.08em;
+  padding: 8px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  transition: opacity 150ms ease;
+}
+
+.zzz-btn-primary:hover {
+  opacity: 0.85;
+}
+
+.zzz-btn-outline {
+  background: transparent;
+  color: #FFE600;
+  font-family: var(--font-bebas);
+  letter-spacing: 0.08em;
+  padding: 7px 20px;
+  font-size: 1rem;
+  border: 2px solid #FFE600;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.zzz-btn-outline:hover {
+  background: #FFE600;
+  color: #000;
+}
+
+/* Markdown content styles */
+.prose-zzz h1,
+.prose-zzz h2,
+.prose-zzz h3 {
+  font-family: var(--font-bebas);
+  color: #F0F0F0;
+  letter-spacing: 0.05em;
+}
+
+.prose-zzz h2 {
+  border-left: 3px solid #FFE600;
+  padding-left: 12px;
+  margin-top: 2rem;
+}
+
+.prose-zzz a {
+  color: #FFE600;
+  text-decoration: none;
+  border-bottom: 1px solid #FFE600;
+}
+
+.prose-zzz code {
+  background: #1A1A1A;
+  border: 1px solid #2A2A2A;
+  padding: 2px 6px;
+  font-family: var(--font-jetbrains);
+  font-size: 0.85em;
+  color: #FFE600;
+}
+
+.prose-zzz pre {
+  background: #0D0D0D;
+  border: 2px solid #2A2A2A;
+  border-left: 3px solid #FFE600;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.prose-zzz pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #F0F0F0;
+}
+
+.prose-zzz blockquote {
+  border-left: 3px solid #FFE600;
+  padding-left: 1rem;
+  color: #999;
+  margin-left: 0;
 }
